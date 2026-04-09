@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Splitter</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4""></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+
 </head>
 <body class="bg-slate-50 font-sans antialiased">
 
