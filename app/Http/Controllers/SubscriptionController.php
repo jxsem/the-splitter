@@ -48,7 +48,7 @@ class SubscriptionController extends Controller
         ]);
 
         // 2. Guardado: Creamos la suscripción vinculada al usuario autenticado
-        // Esto asume que tienes la relación definida en el modelo User
+        // Esto asume que tiene la relación definida en el modelo User
         auth()->user()->subscriptions()->create($validated);
 
         // 3. Redirección: Al terminar, volvemos a la lista con un mensaje de éxito
@@ -80,7 +80,7 @@ class SubscriptionController extends Controller
     }
 
     // Al borrar la suscripción, Laravel borrará también los miembros 
-    // SI tienes puesto el "onDelete('cascade')" en la base de datos.
+    // SI tiene puesto el "onDelete('cascade')" en la base de datos.
     $subscription->delete();
 
     return redirect()->route('subscriptions.index')

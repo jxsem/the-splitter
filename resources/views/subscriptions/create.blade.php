@@ -36,21 +36,34 @@
                             </select>
                         </div>
                         {{-- 4. FECHA DE RENOVACIÓN --}}
-                        <div>
-                            <label for="renewal_date" class="block text-[10px] uppercase tracking-[0.2em] font-black text-slate-400 mb-3">Fecha de Renovación</label>
-                            
-                            <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/></svg>
+                        <div class="mb-3">
+                            <label for="renewal_date" class="form-label">Fecha de renovación</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="3"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                    </svg>
+                                </span>
+                                <input type="text"
+                                    class="form-control @error('renewal_date') is-invalid @enderror"
+                                    id="renewal_date"
+                                    name="renewal_date"
+                                    value="{{ old('renewal_date') }}"
+                                    placeholder="DD/MM/AAAA"
+                                    readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="clear_date" title="Limpiar fecha">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </button>
+                                @error('renewal_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                                <input
-                                    datepicker
-                                    type="text"
-                                    class="w-full ps-9 pe-3 py-2.5 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg"
-                                    placeholder="Selecciona fecha"
-                                />                         
-                            </div>
-
+                            <div class="form-text">Selecciona o escribe la fecha de renovación</div>
                         </div>
                         {{-- 5. BOTÓN GUARDAR --}}
                         <div>

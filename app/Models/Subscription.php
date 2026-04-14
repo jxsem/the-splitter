@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     protected $fillable = ['user_id', 'service_id', 'price', 'renewal_date', 'period'];
-
+    protected $casts = ['renewal_date' => 'date'];
     public function user() {
     return $this->belongsTo(User::class);
     }

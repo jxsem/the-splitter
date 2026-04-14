@@ -78,4 +78,8 @@
     </section>
 
 </body>
+<footer>
+    <div class = "max-w-6xl mx-auto px-8 py-10 border-t border-slate-100">
+        <p class="text-center text-sm text-slate-400 py-6">© 2026 Splitter. Desarrollado por Jose Manuel.</p>
+</footer>
 </html>
