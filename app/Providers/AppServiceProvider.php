@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
 {
-    // Forzamos la redirección tras el Login y el Registro
+    
     \Illuminate\Support\Facades\Event::listen(
         [\Illuminate\Auth\Events\Login::class, \Illuminate\Auth\Events\Registered::class],
         function ($event) {
@@ -27,7 +27,10 @@ class AppServiceProvider extends ServiceProvider
         }
     );
 
-    if (app()->environment('production')) {
+    // 
+    // Forzamos HTTPS si: la APP_ENV es production O si Render nos dice que es HTTPS
+    if (config('app.env') === 'production' || 
+        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
         \Illuminate\Support\Facades\URL::forceScheme('https');
     }
 }
