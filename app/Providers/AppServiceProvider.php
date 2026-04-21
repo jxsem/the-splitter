@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
             session(['url.intended' => route('subscriptions.index')]);
         }
     );
+
+    if (app()->environment('production')) {
+        \Illuminate\Support\Facades\URL::forceScheme('https');
+    }
 }
 }
