@@ -1,15 +1,35 @@
-# Defines la imagen base
-FROM php:8.4
+# Cambiamos de 8.2 a 8.4
+FROM php:8.4-fpm
 
-# Instala las dependencias necesarias
-RUN apt-get update && apt-get install -y libpng-dev \
-    && docker-php-ext-install pdo_mysql 
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    libpq-dev
 
-# Define el directorio de trabajo dentro de linux
-WORKDIR /var/www/html
+# Instalar extensiones de PHP (añadimos soporte para Postgres)
+RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
 
-# Copias tu código fuente al contenedor
-COPY . .
+# Instalar Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Arranca el servidor PHP
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Directorio de trabajo
+WORKDIR /var/www
+
+# Copiar el proyecto
+COPY . /var/www
+
+# Instalar dependencias de Laravel (Añadimos --ignore-platform-reqs por si acaso)
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+# Ajustar permisos
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+
+EXPOSE 10000
+
+CMD php artisan serve --host=0.0.0.0 --port=10000
