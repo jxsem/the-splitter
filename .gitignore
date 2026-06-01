@@ -24,3 +24,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# phpDocumentor
+/.phpdoc/
+/phpdoc.phar
+/build/phpdoc/cache/
