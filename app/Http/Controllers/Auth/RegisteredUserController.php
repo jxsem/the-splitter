@@ -14,10 +14,18 @@ use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @class RegisteredUserController
+ * @package App\Http\Controllers\Auth
+ * @description Controlador para manejar el registro de nuevos usuarios.
+ * Muestra el formulario de registro y procesa las solicitudes de registro.
+ */
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Muestra la vista del formulario de registro.
+     *
+     * @return \Inertia\Response Vista del formulario de registro
      */
     public function create(): Response
     {
@@ -25,9 +33,12 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
+     * Procesa una solicitud de registro de nuevo usuario.
+     * Valida los datos, crea el usuario y lo autentica.
      *
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request Datos del formulario de registro
+     * @return \Illuminate\Http\RedirectResponse Redirecciona al dashboard
+     * @throws \Illuminate\Validation\ValidationException Si la validación falla
      */
     public function store(Request $request): RedirectResponse
     {

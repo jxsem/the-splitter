@@ -14,10 +14,20 @@ use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @class NewPasswordController
+ * @package App\Http\Controllers\Auth
+ * @description Controlador para manejar el reset de contraseña.
+ * Muestra el formulario de nueva contraseña y procesa el cambio.
+ */
 class NewPasswordController extends Controller
 {
     /**
-     * Display the password reset view.
+     * Muestra la vista del formulario de nueva contraseña.
+     * Incluye el email y token de reset.
+     *
+     * @param \Illuminate\Http\Request $request Objeto de solicitud con token y email
+     * @return \Inertia\Response Vista del formulario de reset
      */
     public function create(Request $request): Response
     {
@@ -28,9 +38,12 @@ class NewPasswordController extends Controller
     }
 
     /**
-     * Handle an incoming new password request.
+     * Procesa una solicitud de nueva contraseña.
+     * Valida el token y cambia la contraseña del usuario.
      *
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request Datos del reset (token, email, password)
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a login o muestra error
+     * @throws \Illuminate\Validation\ValidationException Si la validación falla
      */
     public function store(Request $request): RedirectResponse
     {

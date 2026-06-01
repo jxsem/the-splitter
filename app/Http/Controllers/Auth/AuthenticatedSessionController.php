@@ -11,10 +11,19 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @class AuthenticatedSessionController
+ * @package App\Http\Controllers\Auth
+ * @description Controlador para manejar la autenticación de usuarios (login/logout).
+ * Muestra el formulario de inicio de sesión y procesa la autenticación.
+ */
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Muestra la vista del formulario de inicio de sesión.
+     * Incluye opciones para recuperación de contraseña si está habilitada.
+     *
+     * @return \Inertia\Response Vista del formulario de login
      */
     public function create(): Response
     {
@@ -25,7 +34,11 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Procesa una solicitud de autenticación.
+     * Valida las credenciales del usuario y crea una sesión.
+     *
+     * @param \App\Http\Requests\Auth\LoginRequest $request Form Request con credenciales
+     * @return \Illuminate\Http\RedirectResponse Redirecciona al dashboard o URL intendida
      */
     public function store(LoginRequest $request): RedirectResponse
     {
@@ -37,7 +50,11 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Destroy an authenticated session.
+     * Destruye la sesión autenticada del usuario (logout).
+     * Invalida la sesión y regenera el token CSRF.
+     *
+     * @param \Illuminate\Http\Request $request Objeto de solicitud HTTP
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a la página principal
      */
     public function destroy(Request $request): RedirectResponse
     {

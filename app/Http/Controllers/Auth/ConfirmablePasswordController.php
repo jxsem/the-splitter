@@ -10,10 +10,18 @@ use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @class ConfirmablePasswordController
+ * @package App\Http\Controllers\Auth
+ * @description Controlador para confirmación de contraseña.
+ * Requiere confirmación de contraseña antes de operaciones sensibles.
+ */
 class ConfirmablePasswordController extends Controller
 {
     /**
-     * Show the confirm password view.
+     * Muestra la vista de confirmación de contraseña.
+     *
+     * @return \Inertia\Response Vista del formulario de confirmación
      */
     public function show(): Response
     {
@@ -21,7 +29,12 @@ class ConfirmablePasswordController extends Controller
     }
 
     /**
-     * Confirm the user's password.
+     * Confirma la contraseña del usuario.
+     * Valida las credenciales y marca la sesión como con contraseña confirmada.
+     *
+     * @param \Illuminate\Http\Request $request Contraseña a confirmar
+     * @return \Illuminate\Http\RedirectResponse Redirecciona al dashboard o muestra error
+     * @throws \Illuminate\Validation\ValidationException Si la contraseña es incorrecta
      */
     public function store(Request $request): RedirectResponse
     {

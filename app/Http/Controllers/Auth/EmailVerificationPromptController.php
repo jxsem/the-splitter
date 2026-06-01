@@ -8,10 +8,19 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @class EmailVerificationPromptController
+ * @package App\Http\Controllers\Auth
+ * @description Controlador que muestra el prompt de verificación de email.
+ * Redirige al dashboard si ya está verificado.
+ */
 class EmailVerificationPromptController extends Controller
 {
     /**
-     * Display the email verification prompt.
+     * Muestra el prompt de verificación de email o redirige si ya está verificado.
+     *
+     * @param \Illuminate\Http\Request $request Objeto de solicitud HTTP
+     * @return \Illuminate\Http\RedirectResponse|\Inertia\Response Vista o redirección
      */
     public function __invoke(Request $request): RedirectResponse|Response
     {
