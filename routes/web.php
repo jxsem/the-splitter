@@ -5,6 +5,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+/**
+ * Ruta GET para la página de bienvenida.
+ * Muestra información de bienvenida y opciones de login/registro si el usuario no está autenticado.
+ */
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -14,6 +18,10 @@ Route::get('/', function () {
     ]);
 });
 
+/**
+ * Ruta GET para el dashboard.
+ * Solo accesible por usuarios autenticados y con email verificado.
+ */
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

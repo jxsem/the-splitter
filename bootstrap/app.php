@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @file bootstrap/app.php
+ * @description Archivo de bootstrapping principal de la aplicación Laravel.
+ * Configura el enrutamiento, middleware y manejo de excepciones de la aplicación.
+ * Incluye la configuración de Inertia.js como middleware web.
+ */
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

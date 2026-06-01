@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @file public/index.php
+ * @description Punto de entrada principal de la aplicación Laravel.
+ * Maneja todas las solicitudes HTTP, bootstrapea la aplicación y gestiona el mantenimiento.
+ * Este es el primer archivo ejecutado por el servidor web.
+ */
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
