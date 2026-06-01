@@ -2,33 +2,49 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @class Subscription
- * @package App\Models
- * @description Modelo de suscripción. Actúa como el "pegamento" central conectando usuarios, servicios y miembros.
+ * Modelo de Suscripción
+ *
+ * Actúa como el punto central conectando usuarios, servicios y miembros.
  * Representa una suscripción a un servicio que puede ser compartida entre múltiples personas.
+ * Gestiona el precio total, la fecha de renovación y el período de pago.
+ *
+ * @author The Splitter Team
+ *
+ * @since 1.0.0
+ *
  * @property int $id Identificador único de la suscripción
  * @property int $user_id Identificador del usuario propietario
  * @property int $service_id Identificador del servicio suscrito
- * @property float $price Precio total de la suscripción
- * @property \Carbon\Carbon $renewal_date Fecha de renovación de la suscripción
- * @property string $period Período de renovación (monthly, trimesterly, annually)
- * @property \Carbon\Carbon $created_at Fecha de creación
- * @property \Carbon\Carbon $updated_at Fecha de última actualización
+ * @property float $price Precio total de la suscripción (puede diferir del precio base del servicio)
+ * @property Carbon|\Illuminate\Support\Carbon $renewal_date Fecha de próxima renovación
+ * @property string $period Período de renovación: monthly, trimesterly, annually
+ * @property Carbon $created_at Fecha de creación del registro
+ * @property Carbon $updated_at Última fecha de actualización
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription query()
  */
 class Subscription extends Model
 {
     protected $fillable = ['user_id', 'service_id', 'price', 'renewal_date', 'period'];
+
     protected $casts = ['renewal_date' => 'date'];
+
     /**
      * Obtiene el usuario propietario de esta suscripción.
      * Una suscripción pertenece a un único usuario.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Relación BelongsTo con User
+     * @return BelongsTo Relación BelongsTo con User
      */
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -36,9 +52,10 @@ class Subscription extends Model
      * Obtiene el servicio de esta suscripción.
      * Una suscripción pertenece a un único servicio.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Relación BelongsTo con Service
+     * @return BelongsTo Relación BelongsTo con Service
      */
-    public function service() {
+    public function service()
+    {
         return $this->belongsTo(Service::class);
     }
 
@@ -46,9 +63,10 @@ class Subscription extends Model
      * Obtiene todos los miembros que comparten esta suscripción.
      * Una suscripción puede tener muchos miembros.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Relación HasMany con Member
+     * @return HasMany Relación HasMany con Member
      */
-    public function members() {
+    public function members()
+    {
         return $this->hasMany(Member::class);
     }
 
@@ -72,6 +90,7 @@ class Subscription extends Model
     public function getPricePerPersonAttribute()
     {
         $totalPeople = 1 + $this->members()->count();
+
         return $this->price / $totalPeople;
     }
 }
