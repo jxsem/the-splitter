@@ -2,43 +2,6 @@
 
 Esta carpeta contiene la documentación técnica de **The Splitter**, una aplicación Laravel para gestionar suscripciones compartidas entre múltiples usuarios.
 
-## 📚 Documentación Generada
-
-✅ **La documentación ya ha sido generada exitosamente** usando phpDocumentor 3.10 con Docker.
-
-### Para regenerar la documentación:
-
-**Opción 1: Usar el script incluido (recomendado)**
-```bash
-./generate-docs.sh
-```
-
-**Opción 2: Usando Docker directamente**
-```bash
-docker run --rm -v $(pwd):/data -w /data phpdoc/phpdoc:3.10 \
-    -d app,routes,config \
-    -t docs/api \
-    --title "The Splitter API" \
-    --force
-```
-
-**Opción 3: Usando configuración phpdoc.xml**
-```bash
-docker run --rm -v $(pwd):/data -w /data phpdoc/phpdoc:3.10 -c phpdoc.xml
-```
-
-### Requisitos:
-- Docker instalado y ejecutándose
-- En macOS: Docker Desktop debe estar corriendo (`open -a Docker`)
-
-## Estructura de la Documentación
-
-### Archivos de Configuración
-- `phpdoc.xml` - Configuración de phpDocumentor para generar la documentación
-
-### Carpetas
-- `api/` - Documentación HTML generada automáticamente (si ejecutas phpDocumentor)
-
 ## Modelos Principales
 
 ### 1. User (Autenticable)
