@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+    configVersion="3"
+    xmlns="https://www.phpdoc.org/xsd/config.xsd"
+>
+    <title>The Splitter</title>
+
+    <paths>
+        <output>docs/api</output>
+        <cache>build/phpdoc/cache</cache>
+    </paths>
+
+    <version number="1.0.0">
+        <api>
+            <source>
+                <path>app</path>
+                <path>routes</path>
+                <path>config</path>
+            </source>
+            <output>docs/api</output>
+        </api>
+    </version>
+
+    <template name="default"/>
+
+    <settings>
+        <setting name="guides.enabled">true</setting>
+    </settings>
+</phpdocumentor>
