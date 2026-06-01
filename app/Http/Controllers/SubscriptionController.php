@@ -7,16 +7,24 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @class SubscriptionController
+ * @package App\Http\Controllers
+ * @description Controlador para gestionar las operaciones CRUD de suscripciones del usuario autenticado.
+ * Maneja la visualización, creación, almacenamiento, lectura y eliminación de suscripciones.
+ */
 class SubscriptionController extends Controller
 {
     /**
-     * Muestra la lista de suscripciones del usuario logueado.
+     * Muestra la lista de todas las suscripciones del usuario autenticado.
+     * Carga las relaciones asociadas (servicio y miembros) de forma optimizada.
+     *
+     * @return \Illuminate\View\View Vista con la lista de suscripciones
      */
     public function index()
     {
-        // Traemos solo las suscripciones que pertenecen al ID de Jose Manuel (ID 1)
         $subscriptions = Subscription::where('user_id', Auth::id())
-            ->with(['service', 'members']) // Carga optimizada de relaciones
+            ->with(['service', 'members'])
             ->get();
 
         return view('subscriptions.index', compact('subscriptions'));
@@ -24,22 +32,25 @@ class SubscriptionController extends Controller
 
     /**
      * Muestra el formulario para crear una nueva suscripción.
+     * Carga todos los servicios disponibles para mostrar en el formulario.
+     *
+     * @return \Illuminate\View\View Vista con el formulario de creación
      */
     public function create()
     {
-        // Necesitamos todos los servicios (Netflix, Spotify...) para el desplegable
         $services = Service::all();
-
-        // Si la tabla de servicios está vacía, esto mandará una colección vacía a la vista
         return view('subscriptions.create', compact('services'));
     }
 
     /**
-     * Guarda la nueva suscripción en la base de datos.
+     * Guarda una nueva suscripción en la base de datos.
+     * Valida los datos del formulario y asocia la suscripción al usuario autenticado.
+     *
+     * @param \Illuminate\Http\Request $request Objeto de solicitud con los datos validados
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a la lista de suscripciones
      */
     public function store(Request $request)
     {
-        // 1. Validación: Si algo falta, Laravel te devuelve al formulario automáticamente
         $validated = $request->validate([
             'service_id'   => 'required|exists:services,id',
             'price'        => 'required|numeric|min:0',
@@ -47,45 +58,48 @@ class SubscriptionController extends Controller
             'renewal_date' => 'required|date',
         ]);
 
-        // 2. Guardado: Creamos la suscripción vinculada al usuario autenticado
-        // Esto asume que tiene la relación definida en el modelo User
-        auth()->user()->subscriptions()->create($validated);
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $user->subscriptions()->create($validated);
 
-        // 3. Redirección: Al terminar, volvemos a la lista con un mensaje de éxito
         return redirect()->route('subscriptions.index')
             ->with('success', '¡Suscripción guardada con éxito!');
     }
 
 
     /**
-     * Muestra la página de gestión individual de una suscripción
+     * Muestra la página de gestión individual de una suscripción.
+     * Carga todos los miembros asociados a la suscripción.
+     *
+     * @param \App\Models\Subscription $subscription Suscripción a mostrar (inyectada por modelo)
+     * @return \Illuminate\View\View Vista de detalle de la suscripción
      */
     public function show(Subscription $subscription)
     {
-        // Cargamos los amigos (miembros) asociados a esta suscripción
         $subscription->load('members');
-
-        // Retornamos la vista 'show' que creamos antes
         return view('subscriptions.show', compact('subscription'));
     }
 
     /**
-     * Elimina una suscripción.
+     * Elimina una suscripción de la base de datos.
+     * Verifica que la suscripción pertenezca al usuario autenticado antes de eliminarla.
+     * También elimina todos los miembros asociados a través de cascada.
+     *
+     * @param \App\Models\Subscription $subscription Suscripción a eliminar
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a la lista de suscripciones
+     * @throws \Illuminate\Auth\Access\AuthorizationException Si no tiene permiso para eliminar
      */
     public function destroy(Subscription $subscription)
-{
-    // Seguridad: Si la suscripción no es mía, fuera.
-    if ($subscription->user_id !== auth()->id()) {
-        abort(403, 'No tienes permiso para hacer esto.');
+    {
+        if ($subscription->user_id !== Auth::id()) {
+            abort(403, 'No tienes permiso para hacer esto.');
+        }
+
+        $subscription->delete();
+
+        return redirect()->route('subscriptions.index')
+            ->with('success', 'Suscripción eliminada con éxito.');
     }
-
-    // Al borrar la suscripción, Laravel borrará también los miembros 
-    // SI tiene puesto el "onDelete('cascade')" en la base de datos.
-    $subscription->delete();
-
-    return redirect()->route('subscriptions.index')
-        ->with('success', 'Suscripción eliminada con éxito.');
-}
 }
 
 

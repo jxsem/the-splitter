@@ -11,10 +11,20 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @class ProfileController
+ * @package App\Http\Controllers
+ * @description Controlador para gestionar el perfil del usuario autenticado.
+ * Maneja la visualización, edición y eliminación de información del perfil de usuario.
+ */
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Muestra el formulario de edición del perfil del usuario.
+     * Incluye información sobre si se requiere verificación de email.
+     *
+     * @param \Illuminate\Http\Request $request Objeto de solicitud HTTP
+     * @return \Inertia\Response Respuesta de Inertia con el componente de edición de perfil
      */
     public function edit(Request $request): Response
     {
@@ -25,7 +35,11 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user's profile information.
+     * Actualiza la información del perfil del usuario autenticado.
+     * Valida los datos y resetea la verificación de email si el email cambió.
+     *
+     * @param \App\Http\Requests\ProfileUpdateRequest $request Form Request con datos validados
+     * @return \Illuminate\Http\RedirectResponse Redirecciona al formulario de edición
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -41,7 +55,11 @@ class ProfileController extends Controller
     }
 
     /**
-     * Delete the user's account.
+     * Elimina la cuenta del usuario autenticado.
+     * Requiere la contraseña actual y realiza logout de la sesión.
+     *
+     * @param \Illuminate\Http\Request $request Objeto de solicitud con validación de contraseña
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a la página principal
      */
     public function destroy(Request $request): RedirectResponse
     {
