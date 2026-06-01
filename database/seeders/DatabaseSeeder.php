@@ -9,12 +9,21 @@ use App\Models\Service;
 use App\Models\Member;
 use App\Models\Subscription;
 
+/**
+ * @class DatabaseSeeder
+ * @package Database\Seeders
+ * @description Seeder principal de la base de datos.
+ * Puebla la base de datos con datos iniciales incluyendo servicios disponibles.
+ */
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
     /**
-     * Seed the application's database.
+     * Ejecuta el seed de la base de datos.
+     * Crea un conjunto de servicios/plataformas de streaming disponibles.
+     *
+     * @return void
      */
     public function run(): void
     {

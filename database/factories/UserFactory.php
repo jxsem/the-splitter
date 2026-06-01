@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
+ * @class UserFactory
+ * @package Database\Factories
+ * @description Factory para crear instancias de modelo User con datos generados.
+ * Proporciona valores por defecto y estados para facilitar testing.
  * @extends Factory<User>
  */
 class UserFactory extends Factory
@@ -18,9 +22,10 @@ class UserFactory extends Factory
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * Define el estado por defecto del modelo.
+     * Genera valores realistas para todos los atributos del usuario.
      *
-     * @return array<string, mixed>
+     * @return array<string, mixed> Array de atributos del modelo con valores generados
      */
     public function definition(): array
     {
@@ -34,7 +39,10 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Indica que la dirección de email del usuario no está verificada.
+     * Anula el estado de verificación por defecto.
+     *
+     * @return static Instancia de la factory para encadenamiento
      */
     public function unverified(): static
     {
