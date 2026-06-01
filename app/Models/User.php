@@ -11,6 +11,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Subscription;
 
+/**
+ * @class User
+ * @package App\Models
+ * @description Modelo de usuario. Representa a un usuario autenticado en la aplicación con sus suscripciones asociadas.
+ * @extends Authenticatable
+ */
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
@@ -19,9 +25,9 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * Get the attributes that should be cast.
+     * Define los tipos de casting para los atributos del modelo.
      *
-     * @return array<string, string>
+     * @return array<string, string> Array de casting de atributos
      */
     protected function casts(): array
     {
@@ -31,8 +37,14 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Obtiene todas las suscripciones del usuario.
+     * Un usuario puede tener muchas suscripciones.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Relación HasMany con Subscription
+     */
     public function subscriptions()
     {
-        return $this->hasMany(Subscription::class); //Es decir, conectamos al usuario a la subscripcion
+        return $this->hasMany(Subscription::class);
     }
 }
