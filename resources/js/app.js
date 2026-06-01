@@ -1,30 +1,27 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+import '../css/app.css';
+import './bootstrap';
 
-import 'flowbite';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createApp, h } from 'vue';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
-import Alpine from 'alpinejs';
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
-window.Alpine = Alpine;
-
-Alpine.start();
-
-import flatpickr from 'flatpickr';
-import { Spanish } from 'flatpickr/dist/l10n/es.js';
-import 'flatpickr/dist/flatpickr.min.css';
-
-document.addEventListener('DOMContentLoaded', function () {
-    flatpickr('#renewal_date', {
-        locale: Spanish,
-        dateFormat: 'Y-m-d',        // formato que guarda en BD
-        altInput: true,             // muestra un input visual separado
-        altFormat: 'd/m/Y',         // formato que ve el usuario
-        minDate: 'today',           // no permite fechas pasadas
-        allowInput: true,           // permite escribir a mano también
-    });
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) =>
+        resolvePageComponent(
+            `./Pages/${name}.vue`,
+            import.meta.glob('./Pages/**/*.vue'),
+        ),
+    setup({ el, App, props, plugin }) {
+        return createApp({ render: () => h(App, props) })
+            .use(plugin)
+            .use(ZiggyVue)
+            .mount(el);
+    },
+    progress: {
+        color: '#4B5563',
+    },
 });
-
-// tailwind.config.js
-plugins: [
-    require('flowbite/plugin')
-]
