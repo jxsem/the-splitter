@@ -10,10 +10,19 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @class LoginRequest
+ * @package App\Http\Requests\Auth
+ * @description Form Request para validar y procesar solicitudes de login.
+ * Valida credenciales, gestiona rate limiting y autentica al usuario.
+ */
 class LoginRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determina si el usuario está autorizado a hacer esta solicitud.
+     * Siempre devuelve true ya que el login es accesible públicamente.
+     *
+     * @return bool Verdadero si está autorizado
      */
     public function authorize(): bool
     {
@@ -21,9 +30,10 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Define las reglas de validación para el login.
+     * Requiere email válido y contraseña.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string> Reglas de validación
      */
     public function rules(): array
     {
@@ -34,9 +44,11 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Attempt to authenticate the request's credentials.
+     * Intenta autenticar las credenciales de la solicitud.
+     * Comprueba rate limiting, valida credenciales y dispara evento de lockout si falla.
      *
-     * @throws ValidationException
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException Si la autenticación falla o está rate limitada
      */
     public function authenticate(): void
     {
@@ -54,9 +66,11 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Ensure the login request is not rate limited.
+     * Asegura que la solicitud de login no esté rate limitada.
+     * Limita a 5 intentos fallidos por email/IP.
      *
-     * @throws ValidationException
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException Si se ha excedido el límite de intentos
      */
     public function ensureIsNotRateLimited(): void
     {
@@ -77,7 +91,10 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Get the rate limiting throttle key for the request.
+     * Obtiene la clave de throttle para rate limiting.
+     * Combina el email transliterado y la dirección IP del cliente.
+     *
+     * @return string Clave única para rate limiting (email|ip)
      */
     public function throttleKey(): string
     {
