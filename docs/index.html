@@ -1,1 +1,369 @@
-<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>The Splitter - API Documentation</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n        body {\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n            min-height: 100vh;\n        }\n        .container {\n            max-width: 1200px;\n            margin: 0 auto;\n            padding: 2rem;\n        }\n        header {\n            background: white;\n            border-radius: 8px;\n            padding: 3rem 2rem;\n            margin-bottom: 2rem;\n            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n        }\n        header h1 {\n            color: #667eea;\n            margin-bottom: 0.5rem;\n        }\n        header p {\n            color: #666;\n            font-size: 1.1rem;\n        }\n        .content {\n            display: grid;\n            grid-template-columns: 1fr 2fr;\n            gap: 2rem;\n            margin-bottom: 2rem;\n        }\n        .sidebar {\n            background: white;\n            border-radius: 8px;\n            padding: 2rem;\n            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n            height: fit-content;\n        }\n        .sidebar h3 {\n            color: #667eea;\n            margin-bottom: 1rem;\n            border-bottom: 2px solid #667eea;\n            padding-bottom: 0.5rem;\n        }\n        .sidebar ul {\n            list-style: none;\n        }\n        .sidebar li {\n            margin-bottom: 0.5rem;\n        }\n        .sidebar a {\n            color: #667eea;\n            text-decoration: none;\n            padding: 0.5rem;\n            display: block;\n            border-radius: 4px;\n            transition: background 0.3s;\n        }\n        .sidebar a:hover {\n            background: #f0f4ff;\n        }\n        .main {\n            background: white;\n            border-radius: 8px;\n            padding: 2rem;\n            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n        }\n        .model {\n            margin-bottom: 2rem;\n            padding-bottom: 2rem;\n            border-bottom: 1px solid #eee;\n        }\n        .model:last-child {\n            border-bottom: none;\n        }\n        .model h3 {\n            color: #667eea;\n            margin: 1.5rem 0 1rem 0;\n            display: flex;\n            align-items: center;\n            gap: 0.5rem;\n        }\n        .model-badge {\n            background: #667eea;\n            color: white;\n            padding: 0.25rem 0.75rem;\n            border-radius: 20px;\n            font-size: 0.8rem;\n            font-weight: 600;\n        }\n        .properties {\n            background: #f8f9fa;\n            border-left: 4px solid #667eea;\n            padding: 1rem;\n            margin: 1rem 0;\n            border-radius: 4px;\n        }\n        .properties h4 {\n            color: #333;\n            margin-bottom: 0.5rem;\n            font-weight: 600;\n        }\n        .property {\n            margin: 0.5rem 0;\n            font-size: 0.95rem;\n            font-family: 'Monaco', 'Courier New', monospace;\n        }\n        .property-name {\n            color: #667eea;\n            font-weight: 600;\n        }\n        .property-type {\n            color: #764ba2;\n        }\n        .relations h4 {\n            color: #333;\n            margin: 1rem 0 0.5rem 0;\n            font-weight: 600;\n        }\n        .relation {\n            background: #f0f4ff;\n            padding: 0.75rem;\n            margin: 0.5rem 0;\n            border-radius: 4px;\n            border-left: 3px solid #667eea;\n        }\n        .diagram {\n            background: #f8f9fa;\n            border: 1px solid #ddd;\n            border-radius: 4px;\n            padding: 1.5rem;\n            margin: 2rem 0;\n            overflow-x: auto;\n        }\n        .diagram pre {\n            font-family: 'Monaco', 'Courier New', monospace;\n            color: #333;\n            line-height: 1.4;\n        }\n        .tech-stack {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 1rem;\n            margin: 2rem 0;\n        }\n        .tech-item {\n            background: #f0f4ff;\n            padding: 1rem;\n            border-radius: 4px;\n            border-left: 4px solid #667eea;\n        }\n        .tech-item strong {\n            color: #667eea;\n        }\n        footer {\n            background: white;\n            border-radius: 8px;\n            padding: 2rem;\n            text-align: center;\n            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n            color: #666;\n        }\n        @media (max-width: 768px) {\n            .content {\n                grid-template-columns: 1fr;\n            }\n            .sidebar {\n                order: 2;\n            }\n            .main {\n                order: 1;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <header>\n            <h1>🔄 The Splitter</h1>\n            <p>API Documentation - Gestión de Suscripciones Compartidas</p>\n        </header>\n\n        <div class=\"content\">\n            <aside class=\"sidebar\">\n                <h3>📑 Navegación</h3>\n                <ul>\n                    <li><a href=\"#user\">👤 User</a></li>\n                    <li><a href=\"#service\">🎬 Service</a></li>\n                    <li><a href=\"#subscription\">🔗 Subscription</a></li>\n                    <li><a href=\"#member\">👥 Member</a></li>\n                    <li><a href=\"#relations\">📊 Relaciones</a></li>\n                    <li><a href=\"#tech\">⚙️ Tecnologías</a></li>\n                </ul>\n                <h3 style=\"margin-top: 2rem;\">📚 Recursos</h3>\n                <ul>\n                    <li><a href=\"../phpdoc.xml\">phpdoc.xml</a></li>\n                    <li><a href=\"../README.md\">README.md</a></li>\n                </ul>\n            </aside>\n\n            <main class=\"main\">\n                <section id=\"user\" class=\"model\">\n                    <h3>\n                        <span class=\"model-badge\">Model</span>\n                        User\n                    </h3>\n                    <p><strong>Ubicación:</strong> <code>app/Models/User.php</code></p>\n                    <p>Representa a un usuario autenticado en la aplicación. Cada usuario puede ser propietario de múltiples suscripciones compartidas que gestiona con otros miembros.</p>\n\n                    <div class=\"properties\">\n                        <h4>Propiedades Principales</h4>\n                        <div class=\"property\"><span class=\"property-name\">id</span> <span class=\"property-type\">int</span> - Identificador único</div>\n                        <div class=\"property\"><span class=\"property-name\">name</span> <span class=\"property-type\">string</span> - Nombre del usuario</div>\n                        <div class=\"property\"><span class=\"property-name\">email</span> <span class=\"property-type\">string</span> - Email único (credencial)</div>\n                        <div class=\"property\"><span class=\"property-name\">password</span> <span class=\"property-type\">string</span> - Contraseña hasheada</div>\n                        <div class=\"property\"><span class=\"property-name\">email_verified_at</span> <span class=\"property-type\">datetime|null</span> - Verificación</div>\n                    </div>\n\n                    <div class=\"relations\">\n                        <h4>🔗 Relaciones</h4>\n                        <div class=\"relation\">\n                            <strong>subscriptions()</strong> - HasMany<br>\n                            <small>Obtiene todas las suscripciones del usuario</small>\n                        </div>\n                    </div>\n                </section>\n\n                <section id=\"service\" class=\"model\">\n                    <h3>\n                        <span class=\"model-badge\">Model</span>\n                        Service\n                    </h3>\n                    <p><strong>Ubicación:</strong> <code>app/Models/Service.php</code></p>\n                    <p>Representa una plataforma o servicio de suscripción (Netflix, Spotify, etc.) que puede ser compartida entre múltiples usuarios.</p>\n\n                    <div class=\"properties\">\n                        <h4>Propiedades Principales</h4>\n                        <div class=\"property\"><span class=\"property-name\">id</span> <span class=\"property-type\">int</span> - Identificador único</div>\n                        <div class=\"property\"><span class=\"property-name\">name</span> <span class=\"property-type\">string</span> - Nombre del servicio</div>\n                        <div class=\"property\"><span class=\"property-name\">price</span> <span class=\"property-type\">float</span> - Precio mensual</div>\n                    </div>\n\n                    <div class=\"relations\">\n                        <h4>🔗 Relaciones</h4>\n                        <div class=\"relation\">\n                            <strong>subscriptions()</strong> - HasMany<br>\n                            <small>Suscripciones de este servicio</small>\n                        </div>\n                    </div>\n                </section>\n\n                <section id=\"subscription\" class=\"model\">\n                    <h3>\n                        <span class=\"model-badge\">Model</span>\n                        Subscription\n                    </h3>\n                    <p><strong>Ubicación:</strong> <code>app/Models/Subscription.php</code></p>\n                    <p>Actúa como el punto central conectando usuarios, servicios y miembros. Representa una suscripción compartida.</p>\n\n                    <div class=\"properties\">\n                        <h4>Propiedades Principales</h4>\n                        <div class=\"property\"><span class=\"property-name\">id</span> <span class=\"property-type\">int</span> - Identificador único</div>\n                        <div class=\"property\"><span class=\"property-name\">user_id</span> <span class=\"property-type\">int</span> - Usuario propietario</div>\n                        <div class=\"property\"><span class=\"property-name\">service_id</span> <span class=\"property-type\">int</span> - Servicio suscrito</div>\n                        <div class=\"property\"><span class=\"property-name\">price</span> <span class=\"property-type\">float</span> - Precio total</div>\n                        <div class=\"property\"><span class=\"property-name\">renewal_date</span> <span class=\"property-type\">date</span> - Próxima renovación</div>\n                        <div class=\"property\"><span class=\"property-name\">period</span> <span class=\"property-type\">string</span> - Período (monthly, trimesterly, annually)</div>\n                    </div>\n\n                    <div class=\"relations\">\n                        <h4>🔗 Relaciones</h4>\n                        <div class=\"relation\">\n                            <strong>user()</strong> - BelongsTo<br>\n                            <small>Usuario propietario de la suscripción</small>\n                        </div>\n                        <div class=\"relation\">\n                            <strong>service()</strong> - BelongsTo<br>\n                            <small>Servicio de la suscripción</small>\n                        </div>\n                        <div class=\"relation\">\n                            <strong>members()</strong> - HasMany<br>\n                            <small>Miembros que comparten la suscripción</small>\n                        </div>\n                    </div>\n                </section>\n\n                <section id=\"member\" class=\"model\">\n                    <h3>\n                        <span class=\"model-badge\">Model</span>\n                        Member\n                    </h3>\n                    <p><strong>Ubicación:</strong> <code>app/Models/Member.php</code></p>\n                    <p>Representa a una persona que comparte una suscripción (familia, amigos del usuario propietario).</p>\n\n                    <div class=\"properties\">\n                        <h4>Propiedades Principales</h4>\n                        <div class=\"property\"><span class=\"property-name\">id</span> <span class=\"property-type\">int</span> - Identificador único</div>\n                        <div class=\"property\"><span class=\"property-name\">subscription_id</span> <span class=\"property-type\">int</span> - Suscripción</div>\n                        <div class=\"property\"><span class=\"property-name\">name</span> <span class=\"property-type\">string</span> - Nombre del miembro</div>\n                    </div>\n\n                    <div class=\"relations\">\n                        <h4>🔗 Relaciones</h4>\n                        <div class=\"relation\">\n                            <strong>subscription()</strong> - BelongsTo<br>\n                            <small>Suscripción a la que pertenece</small>\n                        </div>\n                    </div>\n                </section>\n\n                <section id=\"relations\" class=\"model\">\n                    <h3>📊 Diagrama de Relaciones</h3>\n                    <div class=\"diagram\">\n                        <pre>┌─────────┐\n│  User   │ (Autenticable)\n└────┬────┘\n     │ (hasMany)\n     │\n     ▼\n┌──────────────────┐\n│  Subscription    │ (Punto central)\n└───┬──────────┬───┘\n    │          │\n    │ (belongsTo)\n    │  Service\n    │\n    ├─ (hasMany)\n    │\n    ▼\n┌─────────┐\n│ Member  │ (Compartidores)\n└─────────┘</pre>\n                    </div>\n                </section>\n\n                <section id=\"tech\" class=\"model\">\n                    <h3>⚙️ Tecnologías Utilizadas</h3>\n                    <div class=\"tech-stack\">\n                        <div class=\"tech-item\"><strong>PHP</strong> 8.3+</div>\n                        <div class=\"tech-item\"><strong>Laravel</strong> 13</div>\n                        <div class=\"tech-item\"><strong>Inertia.js</strong> v2</div>\n                        <div class=\"tech-item\"><strong>Tailwind CSS</strong> v3</div>\n                        <div class=\"tech-item\"><strong>PostgreSQL</strong></div>\n                        <div class=\"tech-item\"><strong>phpDocumentor</strong> 3</div>\n                    </div>\n                </section>\n            </main>\n        </div>\n\n        <footer>\n            <p>📖 Documentación generada automáticamente con <strong>phpDocumentor</strong> • The Splitter v1.0.0</p>\n        </footer>\n    </div>\n</body>\n</html>\n
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Splitter - API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            background: white;
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+        .sidebar h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+        .sidebar a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .sidebar a:hover {
+            background: #f0f4ff;
+        }
+        .main {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .model {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        .model:last-child {
+            border-bottom: none;
+        }
+        .model h3 {
+            color: #667eea;
+            margin: 1.5rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .model-badge {
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .properties {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .properties h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .property {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        .property-name {
+            color: #667eea;
+            font-weight: 600;
+        }
+        .property-type {
+            color: #764ba2;
+        }
+        .relations h4 {
+            color: #333;
+            margin: 1rem 0 0.5rem 0;
+            font-weight: 600;
+        }
+        .relation {
+            background: #f0f4ff;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+        }
+        .diagram {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        .diagram pre {
+            font-family: 'Monaco', 'Courier New', monospace;
+            color: #333;
+            line-height: 1.4;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .tech-item {
+            background: #f0f4ff;
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+        .tech-item strong {
+            color: #667eea;
+        }
+        footer {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                order: 2;
+            }
+            .main {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 The Splitter</h1>
+            <p>API Documentation - Gestión de Suscripciones Compartidas</p>
+        </header>
+
+        <div class="content">
+            <aside class="sidebar">
+                <h3>📑 Navegación</h3>
+                <ul>
+                    <li><a href="#user">👤 User</a></li>
+                    <li><a href="#service">🎬 Service</a></li>
+                    <li><a href="#subscription">🔗 Subscription</a></li>
+                    <li><a href="#member">👥 Member</a></li>
+                    <li><a href="#relations">📊 Relaciones</a></li>
+                    <li><a href="#tech">⚙️ Tecnologías</a></li>
+                </ul>
+                <h3 style="margin-top: 2rem;">📚 Recursos</h3>
+                <ul>
+                    <li><a href="api/index.html">🔍 API Completa</a></li>
+                    <li><a href="README.md">📖 Instrucciones</a></li>
+                </ul>
+            </aside>
+
+            <main class="main">
+                <section id="user" class="model">
+                    <h3>
+                        <span class="model-badge">Model</span>
+                        User
+                    </h3>
+                    <p><strong>Ubicación:</strong> <code>app/Models/User.php</code></p>
+                    <p>Representa a un usuario autenticado en la aplicación. Cada usuario puede ser propietario de múltiples suscripciones compartidas que gestiona con otros miembros.</p>
+
+                    <div class="properties">
+                        <h4>Propiedades Principales</h4>
+                        <div class="property"><span class="property-name">id</span> <span class="property-type">int</span> - Identificador único</div>
+                        <div class="property"><span class="property-name">name</span> <span class="property-type">string</span> - Nombre del usuario</div>
+                        <div class="property"><span class="property-name">email</span> <span class="property-type">string</span> - Email único (credencial)</div>
+                        <div class="property"><span class="property-name">password</span> <span class="property-type">string</span> - Contraseña hasheada</div>
+                        <div class="property"><span class="property-name">email_verified_at</span> <span class="property-type">datetime|null</span> - Verificación</div>
+                    </div>
+
+                    <div class="relations">
+                        <h4>🔗 Relaciones</h4>
+                        <div class="relation">
+                            <strong>subscriptions()</strong> - HasMany<br>
+                            <small>Obtiene todas las suscripciones del usuario</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="service" class="model">
+                    <h3>
+                        <span class="model-badge">Model</span>
+                        Service
+                    </h3>
+                    <p><strong>Ubicación:</strong> <code>app/Models/Service.php</code></p>
+                    <p>Representa una plataforma o servicio de suscripción (Netflix, Spotify, etc.) que puede ser compartida entre múltiples usuarios.</p>
+
+                    <div class="properties">
+                        <h4>Propiedades Principales</h4>
+                        <div class="property"><span class="property-name">id</span> <span class="property-type">int</span> - Identificador único</div>
+                        <div class="property"><span class="property-name">name</span> <span class="property-type">string</span> - Nombre del servicio</div>
+                        <div class="property"><span class="property-name">price</span> <span class="property-type">float</span> - Precio mensual</div>
+                    </div>
+
+                    <div class="relations">
+                        <h4>🔗 Relaciones</h4>
+                        <div class="relation">
+                            <strong>subscriptions()</strong> - HasMany<br>
+                            <small>Suscripciones de este servicio</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="subscription" class="model">
+                    <h3>
+                        <span class="model-badge">Model</span>
+                        Subscription
+                    </h3>
+                    <p><strong>Ubicación:</strong> <code>app/Models/Subscription.php</code></p>
+                    <p>Actúa como el punto central conectando usuarios, servicios y miembros. Representa una suscripción compartida.</p>
+
+                    <div class="properties">
+                        <h4>Propiedades Principales</h4>
+                        <div class="property"><span class="property-name">id</span> <span class="property-type">int</span> - Identificador único</div>
+                        <div class="property"><span class="property-name">user_id</span> <span class="property-type">int</span> - Usuario propietario</div>
+                        <div class="property"><span class="property-name">service_id</span> <span class="property-type">int</span> - Servicio suscrito</div>
+                        <div class="property"><span class="property-name">price</span> <span class="property-type">float</span> - Precio total</div>
+                        <div class="property"><span class="property-name">renewal_date</span> <span class="property-type">date</span> - Próxima renovación</div>
+                        <div class="property"><span class="property-name">period</span> <span class="property-type">string</span> - Período (monthly, trimesterly, annually)</div>
+                    </div>
+
+                    <div class="relations">
+                        <h4>🔗 Relaciones</h4>
+                        <div class="relation">
+                            <strong>user()</strong> - BelongsTo<br>
+                            <small>Usuario propietario de la suscripción</small>
+                        </div>
+                        <div class="relation">
+                            <strong>service()</strong> - BelongsTo<br>
+                            <small>Servicio de la suscripción</small>
+                        </div>
+                        <div class="relation">
+                            <strong>members()</strong> - HasMany<br>
+                            <small>Miembros que comparten la suscripción</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="member" class="model">
+                    <h3>
+                        <span class="model-badge">Model</span>
+                        Member
+                    </h3>
+                    <p><strong>Ubicación:</strong> <code>app/Models/Member.php</code></p>
+                    <p>Representa a una persona que comparte una suscripción (familia, amigos del usuario propietario).</p>
+
+                    <div class="properties">
+                        <h4>Propiedades Principales</h4>
+                        <div class="property"><span class="property-name">id</span> <span class="property-type">int</span> - Identificador único</div>
+                        <div class="property"><span class="property-name">subscription_id</span> <span class="property-type">int</span> - Suscripción</div>
+                        <div class="property"><span class="property-name">name</span> <span class="property-type">string</span> - Nombre del miembro</div>
+                    </div>
+
+                    <div class="relations">
+                        <h4>🔗 Relaciones</h4>
+                        <div class="relation">
+                            <strong>subscription()</strong> - BelongsTo<br>
+                            <small>Suscripción a la que pertenece</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="relations" class="model">
+                    <h3>📊 Diagrama de Relaciones</h3>
+                    <div class="diagram">
+                        <pre>┌─────────┐
+│  User   │ (Autenticable)
+└────┬────┘
+     │ (hasMany)
+     │
+     ▼
+┌──────────────────┐
+│  Subscription    │ (Punto central)
+└───┬──────────┬───┘
+    │          │
+    │ (belongsTo)
+    │  Service
+    │
+    ├─ (hasMany)
+    │
+    ▼
+┌─────────┐
+│ Member  │ (Compartidores)
+└─────────┘</pre>
+                    </div>
+                </section>
+
+                <section id="tech" class="model">
+                    <h3>⚙️ Tecnologías Utilizadas</h3>
+                    <div class="tech-stack">
+                        <div class="tech-item"><strong>PHP</strong> 8.3+</div>
+                        <div class="tech-item"><strong>Laravel</strong> 13</div>
+                        <div class="tech-item"><strong>Inertia.js</strong> v2</div>
+                        <div class="tech-item"><strong>Tailwind CSS</strong> v3</div>
+                        <div class="tech-item"><strong>PostgreSQL</strong></div>
+                        <div class="tech-item"><strong>phpDocumentor</strong> 3</div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>📖 Documentación generada automáticamente con <strong>phpDocumentor</strong> • The Splitter v1.0.0</p>
+        </footer>
+    </div>
+</body>
+</html>
