@@ -124,4 +124,3 @@ Representa a una persona que comparte una suscripción (amigos del usuario propi
 3. **Validación** - Usar Form Requests para validación en controladores
 4. **Relaciones** - Las relaciones se definen explícitamente en los modelos
 
-Para más información sobre la configuración del proyecto, ver `CLAUDE.md` en la raíz.
